@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>printorders</id>
+    <name>Print Orders</name>
+    <summary>Print job order management system</summary>
+    <description><![CDATA[A complete print order management system that allows users to:
+    - Submit print orders with detailed specifications
+    - Take and categorize photos
+    - Generate professional PDF documents
+    - Track order status
+    - Verify documents via QR codes
+    - Manage customer information]]></description>
+    <version>1.0.0</version>
+    <licence>agpl</licence>
+    <author>Siwel</author>
+    <namespace>PrintOrders</namespace>
+    <category>tools</category>
+    <category>organization</category>
+    
+    <dependencies>
+        <nextcloud min-version="24" max-version="27"/>
+        <php min-version="7.4"/>
+        <database>mysql</database>
+    </dependencies>
+
+    <types>
+        <filesystem/>
+    </types>
+
+    <documentation>
+        <user>https://docs.example.com/printorders/user</user>
+        <admin>https://docs.example.com/printorders/admin</admin>
+        <developer>https://docs.example.com/printorders/developer</developer>
+    </documentation>
+
+    <category>tools</category>
+
+    <navigations>
+        <navigation>
+            <name>Print Orders</name>
+            <route>printorders.page.index</route>
+            <order>10</order>
+            <icon>app.svg</icon>
+        </navigation>
+    </navigations>
+</info>
