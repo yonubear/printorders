@@ -1,4 +1,3 @@
-# build.sh
 #!/bin/bash
 
 # Colors for output

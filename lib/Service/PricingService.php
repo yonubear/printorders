@@ -1,21 +1,11 @@
 <?php
+
 namespace OCA\PrintOrders\Service;
 
-use OCP\IConfig;
-
 class PricingService {
-    private $config;
-
-    public function __construct(IConfig $config) {
-        $this->config = $config;
-    }
+    // Other methods...
 
     public function calculatePrice(array $orderData): array {
-        $paperGrades = json_decode(
-            $this->config->getAppValue('printorders', 'paper_grades', '[]'),
-            true
-        );
-
         $selectedPaper = array_filter($paperGrades, function($grade) use ($orderData) {
             return $grade['id'] === $orderData['paperGradeId'];
         });
@@ -105,11 +95,6 @@ class PricingService {
             ];
         }
 
-        return [
-            'breakdown' => $breakdown,
-            'subtotal' => $price['subtotal'],
-            'tax' => $price['tax'],
-            'total' => $price['total']
-        ];
+        return $breakdown;
     }
 }
