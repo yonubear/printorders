@@ -15,7 +15,7 @@ class VerificationController extends Controller {
         IRequest $request,
         PDFService $pdfService
     ) {
-        parent::__construct($$AppName,$$ request);
+        parent::__construct($AppName, $request);
         $this->pdfService = $pdfService;
     }
 
@@ -25,7 +25,7 @@ class VerificationController extends Controller {
      */
     public function verify(string $data): DataResponse {
         try {
-            $$isValid =$$ this->pdfService->verifyPDF($data);
+            $isValid = $this->pdfService->verifyPDF($data);
 
             return new DataResponse([
                 'status' => 'success',

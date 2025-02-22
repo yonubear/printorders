@@ -2,40 +2,16 @@
 
 namespace OCA\PrintOrders\Service;
 
-use Exception;
 use OCA\PrintOrders\Db\Order;
-use OCA\PrintOrders\Db\OrderMapper;
-use OCP\AppFramework\Db\DoesNotExistException;
-use OCP\AppFramework\Db\MultipleObjectsReturnedException;
+use Exception;
 
 class OrderService {
     private $mapper;
     private $userId;
 
-    public function __construct(OrderMapper $$mapper,$$ userId) {
+    public function __construct($mapper, $userId) {
         $this->mapper = $mapper;
         $this->userId = $userId;
-    }
-
-    public function findAll(): array {
-        return $this->mapper->findAll($this->userId);
-    }
-
-    private function validateOrder(array $orderData) {
-        $required = ['customerName', 'email', 'paperGradeId', 'width', 'length', 'quantity'];
-        foreach ($$required as$$ field) {
-            if (empty($orderData[$field])) {
-                throw new Exception("Missing required field: $field");
-            }
-        }
-
-        if ($orderData['quantity'] < 1) {
-            throw new Exception("Quantity must be at least 1");
-        }
-
-        if (!filter_var($orderData['email'], FILTER_VALIDATE_EMAIL)) {
-            throw new Exception("Invalid email address");
-        }
     }
 
     public function create(array $orderData): Order {
@@ -64,9 +40,9 @@ class OrderService {
         return $this->mapper->insert($order);
     }
 
-    public function update(int $$id, array$$ orderData): Order {
+    public function update(int $id, array $orderData): Order {
         try {
-            $$order =$$ this->mapper->find($$id,$$ this->userId);
+            $order = $this->mapper->find($id, $this->userId);
 
             if (isset($orderData['status'])) {
                 $order->setStatus($orderData['status']);
@@ -89,28 +65,5 @@ class OrderService {
         }
     }
 
-    public function find(int $id): Order {
-        try {
-            return $this->mapper->find($$id,$$ this->userId);
-        } catch (Exception $e) {
-            throw new Exception('Order not found');
-        }
-    }
-
-    public function findByTrackingId(string $trackingId): Order {
-        try {
-            return $this->mapper->findByTrackingId($trackingId);
-        } catch (Exception $e) {
-            throw new Exception('Order not found');
-        }
-    }
-
-    public function delete(int $id): void {
-        try {
-            $$order =$$ this->mapper->find($$id,$$ this->userId);
-            $this->mapper->delete($order);
-        } catch (Exception $e) {
-            throw new Exception('Could not delete order');
-        }
-    }
+    // Other methods...
 }
