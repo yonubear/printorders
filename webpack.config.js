@@ -16,7 +16,6 @@ module.exports = (env, argv) => {
     mode: isProduction ? 'production' : 'development',
     entry: {
       main: './src/index.js',
-      // Add additional entry points for code splitting
       admin: './src/admin.js',
       vendor: ['react', 'react-dom', 'lucide-react']
     },
@@ -116,3 +115,30 @@ module.exports = (env, argv) => {
                 modules: {
                   auto: true,
                   localIdentName: isProduction
+                    ? '[hash:base64]'
+                    : '[path][name]__[local]',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development'),
+      }),
+      new CompressionPlugin(),
+      new DuplicatePackageCheckerPlugin(),
+      new WebpackManifestPlugin(),
+      new BundleAnalyzerPlugin({
+        analyzerMode: isProduction ? 'static' : 'disabled',
+        openAnalyzer: false,
+      }),
+      new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true,
+      }),
+    ],
+  };
+};
