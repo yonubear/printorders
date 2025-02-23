@@ -26,5 +26,16 @@
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
     "imagemin-svgo": "^10.0.1"
+    "browserslist-config": "^latest_version", // Update to a valid version or find an alternative
+    "rollup-plugin-terser": "^latest_version",
+    "workbox-google-analytics": "^latest_version",
+    "inflight": "^latest_version",
+    "source-map-resolve": "^latest_version",
+    "sourcemap-codec": "^latest_version",
+    "stable": "^latest_version",
+    "resolve-url": "^latest_version",
+    "source-map-url": "^latest_version",
+    "urix": "^latest_version"
+	
   }
 }
