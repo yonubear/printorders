@@ -1,12 +1,15 @@
 module.exports = {
   presets: [
-    ['@babel/preset-react', { runtime: 'automatic' }]
-  ],
-  env: {
-    production: {
-      plugins: [
-        ['transform-react-remove-prop-types', { removeImport: true }]
-      ]
-    }
-  }
+    ['@babel/preset-env', {
+      useBuiltIns: 'usage',
+      corejs: 3,
+      targets: {
+        node: '18',
+        browsers: [
+          'defaults',
+          'not IE 11'
+        ]
+      }
+    }]
+  ]
 }
