@@ -2,29 +2,16 @@
   "name": "printorders",
   "version": "1.0.0",
   "description": "Print Orders App for Nextcloud",
-  "main": "index.js",
+  "main": "src/admin.js",
   "scripts": {
     "build": "webpack --mode production",
-    "test": "jest"
+    "dev": "webpack serve --mode development",
+    "lint": "eslint --ext .js,.vue src",
+    "lint:fix": "eslint --ext .js,.vue src --fix"
   },
   "dependencies": {
-    "rollup-plugin-terser": "^7.0.2",
-    "workbox-google-analytics": "^7.0.0",
-    "inflight": "^1.0.6",
-    "source-map-resolve": "^0.6.0",
-    "sourcemap-codec": "^1.4.8",
-    "stable": "^0.1.8",
-    "resolve-url": "^0.2.1",
-    "source-map-url": "^0.4.1",
-    "urix": "^0.1.0"
-  },
-  "devDependencies": {
-    "@browserslist/config-default": "^5.0.0",
-    "eslint": "^8.56.0",
-    "jest": "^29.7.0",
-    "webpack": "^5.90.0"
-  },
-  "browserslist": [
-    "extends @browserslist/config-default"
-  ]
-}
+    "@nextcloud/auth": "^2.0.0",
+    "@nextcloud/axios": "^2.0.0",
+    "@nextcloud/dialogs": "^4.0.0",
+    "@nextcloud/router": "^2.0.0",
+    "@nextcloud/vue": "^7
