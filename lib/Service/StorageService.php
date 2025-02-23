@@ -42,5 +42,34 @@ class StorageService {
         return $storedFiles;
     }
 
-    // Other methods...
+    public function getOrderPhotos(int $orderId, string $category, string $userId): array {
+        $path = self::BASE_PATH . "/{$userId}/photos/{$category}";
+        $userFolder = $this->rootFolder->getUserFolder();
+
+        if (!$userFolder->nodeExists($path)) {
+            return [];
+        }
+
+        $folder = $userFolder->get($path);
+        $files = $folder->getDirectoryListing();
+        
+        return array_map(function($file) {
+            return [
+                'name' => $file->getName(),
+                'path' => $file->getPath(),
+                'size' => $file->getSize(),
+                'timestamp' => $file->getMTime()
+            ];
+        }, $files);
+    }
+
+    public function deletePhoto(int $orderId, string $category, string $photoId, string $userId): void {
+        $path = self::BASE_PATH . "/{$userId}/photos/{$category}/{$photoId}";
+        $userFolder = $this->rootFolder->getUserFolder();
+
+        if ($userFolder->nodeExists($path)) {
+            $file = $userFolder->get($path);
+            $file->delete();
+        }
+    }
 }

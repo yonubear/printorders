@@ -18,7 +18,7 @@ class OrderController extends Controller {
         OrderService $orderService,
         StorageService $storageService
     ) {
-        parent::__construct($$AppName,$$ request);
+        parent::__construct($AppName, $request);
         $this->orderService = $orderService;
         $this->storageService = $storageService;
     }
@@ -28,8 +28,8 @@ class OrderController extends Controller {
      * @NoCSRFRequired
      */
     public function create(): DataResponse {
-        $$orderData =$$ this->request->getParams();
-        $$files =$$ this->request->getUploadedFiles();
+        $orderData = $this->request->getParams();
+        $files = $this->request->getUploadedFiles();
 
         // Validate input data
         if (!isset($orderData['customerName']) || !isset($orderData['email'])) {
@@ -37,11 +37,11 @@ class OrderController extends Controller {
         }
 
         // Create order
-        $$order =$$ this->orderService->create($orderData);
+        $order = $this->orderService->create($orderData);
 
         // Upload files
         $photos = [];
-        foreach ($$files as$$ category => $categoryFiles) {
+        foreach ($files as $category => $categoryFiles) {
             $photos[$category] = $this->storageService->storeFiles($categoryFiles, "print_orders/{$order->getId()}/photos/{$category}");
         }
 
