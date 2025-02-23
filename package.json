@@ -7,11 +7,42 @@
     "build": "webpack --mode production",
     "dev": "webpack serve --mode development",
     "lint": "eslint --ext .js,.vue src",
-    "lint:fix": "eslint --ext .js,.vue src --fix"
+    "lint:fix": "eslint --ext .js,.vue src --fix",
+    "watch": "webpack --watch --mode development"
   },
   "dependencies": {
     "@nextcloud/auth": "^2.0.0",
     "@nextcloud/axios": "^2.0.0",
     "@nextcloud/dialogs": "^4.0.0",
     "@nextcloud/router": "^2.0.0",
-    "@nextcloud/vue": "^7
+    "@nextcloud/vue": "^7.0.0",
+    "@nextcloud/l10n": "^2.0.0",
+    "date-fns": "^2.30.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4",
+    "vue-i18n": "^9.2.2",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@vue/compiler-sfc": "^3.3.4",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.10.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.17.0",
+    "eslint-webpack-plugin": "^4.0.1",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "sass": "^1.70.0",
+    "sass-loader": "^14.1.0",
+    "style-loader": "^3.3.4",
+    "vue-loader": "^17.3.1",
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2"
+  },
+  "browserslist": [
+    "extends @nextcloud/browserslist-config"
+  ]
+}
