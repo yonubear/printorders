@@ -1,30 +1,34 @@
 {
+  "name": "printorders",
+  "version": "1.0.0",
+  "description": "Manage and process print orders",
+  "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "build:analyze": "webpack --mode production --analyze",
-    "build:profile": "webpack --mode production --profile --json > stats.json",
-    "optimize": "node scripts/optimize.js"
+    "start": "webpack serve --mode development"
   },
+  "author": "yonubear",
+  "license": "AGPL-3.0",
   "devDependencies": {
-    "@babel/core": "^7.22.10",
-    "@babel/preset-react": "^7.22.5",
-    "babel-loader": "^9.1.3",
-    "compression-webpack-plugin": "^10.0.0",
-    "css-loader": "^6.8.1",
-    "css-minimizer-webpack-plugin": "^5.0.1",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-dev-server": "^3.11.2",
+    "babel-loader": "^8.2.2",
+    "style-loader": "^2.0.0",
+    "css-loader": "^5.2.6",
+    "compression-webpack-plugin": "^8.0.1",
+    "terser-webpack-plugin": "^5.1.4",
+    "css-minimizer-webpack-plugin": "^3.0.2",
     "duplicate-package-checker-webpack-plugin": "^3.0.0",
-    "terser-webpack-plugin": "^5.3.9",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-bundle-analyzer": "^4.9.0",
-    "webpack-manifest-plugin": "^5.0.0",
-    "workbox-webpack-plugin": "^7.0.0",
-    "image-minimizer-webpack-plugin": "^3.8.3",
-    "imagemin": "^8.0.1",
-    "imagemin-gifsicle": "^7.0.0",
-    "imagemin-jpegtran": "^7.0.0",
-    "imagemin-optipng": "^8.0.0",
-    "imagemin-svgo": "^10.0.1"
+    "webpack-manifest-plugin": "^3.1.1",
+    "webpack-bundle-analyzer": "^4.4.2",
+    "workbox-webpack-plugin": "^6.1.5",
+    "image-minimizer-webpack-plugin": "^2.2.0",
+    "browserslist-config": "^1.0.0"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "lucide-react": "^0.14.0"
   }
 }
