@@ -8,7 +8,7 @@
     "test": "npm run test"
   },
   "dependencies": {
-    "browserslist-config": "^latest_version", // Update to a valid version or find an alternative
+    "browserslist-config": "^latest_version",
     "rollup-plugin-terser": "^latest_version",
     "workbox-google-analytics": "^latest_version",
     "inflight": "^latest_version",
