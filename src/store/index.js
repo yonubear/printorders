@@ -1,15 +1,12 @@
 import { createStore } from 'vuex'
-import api from '../services/api'
 
 export default createStore({
   state: {
+    // Your initial state here
     orders: [],
     loading: false,
-    error: null,
-    currentUser: OC.getCurrentUser().uid,
-    settings: null
+    error: null
   },
-  
   mutations: {
     SET_ORDERS(state, orders) {
       state.orders = orders
@@ -19,52 +16,25 @@ export default createStore({
     },
     SET_ERROR(state, error) {
       state.error = error
-    },
-    UPDATE_ORDER(state, updatedOrder) {
-      const index = state.orders.findIndex(order => order.id === updatedOrder.id)
-      if (index !== -1) {
-        state.orders.splice(index, 1, updatedOrder)
-      }
-    },
-    SET_SETTINGS(state, settings) {
-      state.settings = settings
     }
   },
-  
   actions: {
     async fetchOrders({ commit }) {
-      commit('SET_LOADING', true)
       try {
-        const orders = await api.getOrders()
-        commit('SET_ORDERS', orders)
+        commit('SET_LOADING', true)
+        // Add your API call here
+        // const response = await axios.get('your-api-endpoint')
+        // commit('SET_ORDERS', response.data)
       } catch (error) {
         commit('SET_ERROR', error.message)
       } finally {
         commit('SET_LOADING', false)
       }
-    },
-    
-    async updateOrderStatus({ commit }, { orderId, status }) {
-      try {
-        const updatedOrder = await api.updateOrder(orderId, { status })
-        commit('UPDATE_ORDER', updatedOrder)
-        return true
-      } catch (error) {
-        commit('SET_ERROR', error.message)
-        return false
-      }
     }
   },
-  
   getters: {
-    getOrderById: (state) => (id) => {
-      return state.orders.find(order => order.id === id)
-    },
-    pendingOrders: (state) => {
-      return state.orders.filter(order => order.status === 'pending')
-    },
-    processingOrders: (state) => {
-      return state.orders.filter(order => order.status === 'processing')
-    }
+    getOrders: state => state.orders,
+    isLoading: state => state.loading,
+    hasError: state => state.error
   }
 })
