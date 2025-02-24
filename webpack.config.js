@@ -3,7 +3,11 @@ const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// Determine the environment
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
+  mode: isProduction ? 'production' : 'development',
   entry: {
     main: path.join(__dirname, 'src/admin.js')
   },
@@ -31,7 +35,7 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
           'postcss-loader'
         ]
@@ -39,7 +43,7 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader',
           'postcss-loader',
           'sass-loader'
@@ -53,9 +57,11 @@ module.exports = {
       filename: '[name].css'
     }),
     new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: true,
-      __VUE_PROD_DEVTOOLS__: false,
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+      __VUE_OPTIONS_API__: JSON.stringify(true),
+      __VUE_PROD_DEVTOOLS__: JSON.stringify(!isProduction),
+      'process.env': {
+        NODE_ENV: JSON.stringify(isProduction ? 'production' : 'development')
+      }
     })
   ],
   resolve: {
@@ -65,8 +71,6 @@ module.exports = {
       'vue': '@vue/runtime-dom'
     }
   },
-  target: 'web',
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   optimization: {
     moduleIds: 'deterministic',
     chunkIds: 'named',
