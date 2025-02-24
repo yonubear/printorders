@@ -5,17 +5,19 @@
     <id>printorders</id>
     <name>Print Orders</name>
     <summary>Manage print orders in Nextcloud</summary>
-    <description><![CDATA[A Nextcloud application to manage print orders for Thee Olde print Shop]]></description>
-    <version>1.0.5</version>
+    <description><![CDATA[A Nextcloud application to manage print orders for Thee Olde Print Shop]]></description>
+    <version>1.0.6</version>
     <licence>agpl</licence>
     <author>yonubear</author>
     <namespace>PrintOrders</namespace>
     <category>tools</category>
     <bugs>https://github.com/yonubear/printorders/issues</bugs>
+    
     <dependencies>
         <nextcloud min-version="25" max-version="27"/>
-        <php min-version="8.0" max-version="8.2"/>
+        <php min-version="7.4" max-version="8.1"/>
     </dependencies>
+    
     <navigations>
         <navigation>
             <name>Print Orders</name>
