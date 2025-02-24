@@ -10,8 +10,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    chunkFormat: 'array-push',  // Add this line
-    chunkLoading: 'jsonp',      // Add this line
+    chunkFormat: 'array-push',
+    chunkLoading: 'jsonp',
     clean: true,
     publicPath: '/apps/printorders/dist/'
   },
@@ -25,25 +25,24 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', {
-                useBuiltIns: 'usage',
-                corejs: 3,
-                targets: {
-                  browsers: ['> 1%', 'last 2 versions', 'not ie 11']
-                }
-              }]
-            ]
-          }
+          loader: 'babel-loader'
         }
       },
       {
         test: /\.css$/,
         use: [
-          'style-loader',
-          'css-loader'
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+          'sass-loader'
         ]
       }
     ]
@@ -55,18 +54,19 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       __VUE_OPTIONS_API__: true,
-      __VUE_PROD_DEVTOOLS__: false
+      __VUE_PROD_DEVTOOLS__: false,
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     })
   ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      'vue$': 'vue/dist/vue.esm-bundler.js'
+      'vue': '@vue/runtime-dom'
     }
   },
   target: 'web',
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   optimization: {
     moduleIds: 'deterministic',
     chunkIds: 'named',
