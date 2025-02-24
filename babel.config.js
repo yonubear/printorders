@@ -4,12 +4,16 @@ module.exports = {
       useBuiltIns: 'usage',
       corejs: 3,
       targets: {
-        node: '18',
         browsers: [
-          'defaults',
-          'not IE 11'
-        ]
+          'last 2 versions',
+          '> 1%',
+          'not ie 11'
+        ],
+        node: '18'
       }
     }]
+  ],
+  plugins: [
+    '@babel/plugin-transform-runtime'
   ]
-}
+};
