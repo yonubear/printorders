@@ -101,8 +101,7 @@ module.exports = {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       __VUE_OPTIONS_API__: true,
       __VUE_PROD_DEVTOOLS__: false,
-      // Add build timestamp
-      '__BUILD_DATE__': JSON.stringify('2025-02-24 18:33:58'),
+      '__BUILD_DATE__': JSON.stringify('2025-02-24 19:33:16'),
       '__LAST_UPDATE_BY__': JSON.stringify('yonubear')
     })
   ],

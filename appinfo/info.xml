@@ -6,7 +6,7 @@
     <name>Print Orders</name>
     <summary>Manage print orders in Nextcloud</summary>
     <description><![CDATA[A Nextcloud application to manage print orders for Thee Olde Print Shop]]></description>
-    <version>1.0.6</version>
+    <version>1.0.8</version>
     <licence>agpl</licence>
     <author>yonubear</author>
     <namespace>PrintOrders</namespace>
@@ -15,7 +15,7 @@
     
     <dependencies>
         <nextcloud min-version="25" max-version="27"/>
-        <php min-version="7.4" max-version="8.1"/>
+        <php min-version="7.4" max-version="8.4"/>
     </dependencies>
     
     <navigations>
