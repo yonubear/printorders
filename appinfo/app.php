@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
-require_once __DIR__ . '/../vendor/autoload.php';
+if ((@include_once __DIR__ . '/../vendor/autoload.php') === false) {
+    throw new \Exception('Cannot include autoload. Did you run composer install?');
+}
 
-use OCP\AppFramework\App;
 use OCA\PrintOrders\AppInfo\Application;
 
 $app = new Application();
