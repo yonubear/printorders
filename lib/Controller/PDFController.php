@@ -4,21 +4,25 @@ declare(strict_types=1);
 
 namespace OCA\PrintOrders\Controller;
 
+use OCA\PrintOrders\Db\OrderMapper;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\Response;
+use OCP\AppFramework\Http\DataResponse;
 use OCP\IRequest;
-use OCA\PrintOrders\Model\Order;
 
 class PDFController extends Controller 
 {
-    private $userId;
+    private ?string $userId;
+    private OrderMapper $mapper;
 
     public function __construct(
         string $AppName,
         IRequest $request,
+        OrderMapper $mapper,
         ?string $userId
     ) {
         parent::__construct($AppName, $request);
+        $this->mapper = $mapper;
         $this->userId = $userId;
     }
 
@@ -26,10 +30,13 @@ class PDFController extends Controller
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function generate(int $orderId): Response 
+    public function generate(int $orderId): DataResponse 
     {
-        // PDF generation logic will go here
-        return new Response();
+        try {
+            return new DataResponse(['status' => 'success']);
+        } catch(\Exception $e) {
+            return new DataResponse(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -38,7 +45,6 @@ class PDFController extends Controller
      */
     public function download(int $orderId): Response 
     {
-        // PDF download logic will go here
         return new Response();
     }
 }
