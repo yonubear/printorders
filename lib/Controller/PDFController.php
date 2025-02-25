@@ -1,29 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace OCA\PrintOrders\Controller;
 
-use OCP\IRequest;
-use OCP\AppFramework\Http\DataResponse;
-use OCP\AppFramework\Http\StreamResponse;
 use OCP\AppFramework\Controller;
-use OCA\PrintOrders\Service\OrderService;
-use OCA\PrintOrders\Service\PDFService;
+use OCP\AppFramework\Http\Response;
+use OCP\IRequest;
+use OCA\PrintOrders\Model\Order;
 
-class PDFController extends Controller {
-    private $orderService;
-    private $pdfService;
+class PDFController extends Controller 
+{
     private $userId;
 
     public function __construct(
         string $AppName,
         IRequest $request,
-        OrderService $orderService,
-        PDFService $pdfService,
-        $userId
+        ?string $userId
     ) {
         parent::__construct($AppName, $request);
-        $this->orderService = $orderService;
-        $this->pdfService = $pdfService;
         $this->userId = $userId;
     }
 
@@ -31,72 +26,19 @@ class PDFController extends Controller {
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function downloadOrderPDF(int $id) {
-        try {
-            $order = $this->orderService->find($id, $this->userId);
-            $pdf = $this->pdfService->generateOrderPDF($order);
-
-            $response = new StreamResponse();
-            $response->setContentType('application/pdf');
-            $response->setHeader('Content-Disposition', 'attachment; filename="order_' . $order->getTrackingId() . '.pdf"');
-            $response->setBody($pdf);
-
-            return $response;
-        } catch (\Exception $e) {
-            return new DataResponse([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+    public function generate(int $orderId): Response 
+    {
+        // PDF generation logic will go here
+        return new Response();
     }
 
     /**
      * @NoAdminRequired
      * @NoCSRFRequired
      */
-    public function downloadBatchPDF(array $orderIds) {
-        try {
-            $orders = [];
-            foreach ($orderIds as $id) {
-                $orders[] = $this->orderService->find($id, $this->userId);
-            }
-
-            $pdf = $this->pdfService->generateBatchPDF($orders);
-
-            $response = new StreamResponse();
-            $response->setContentType('application/pdf');
-            $response->setHeader('Content-Disposition', 'attachment; filename="orders_batch_' . date('Y-m-d') . '.pdf"');
-            $response->setBody($pdf);
-
-            return $response;
-        } catch (\Exception $e) {
-            return new DataResponse([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    /**
-     * @NoAdminRequired
-     * @NoCSRFRequired
-     */
-    public function previewPDF(int $id) {
-        try {
-            $order = $this->orderService->find($id, $this->userId);
-            $pdf = $this->pdfService->generateOrderPDF($order);
-
-            $response = new StreamResponse();
-            $response->setContentType('application/pdf');
-            $response->setHeader('Content-Disposition', 'inline; filename="order_' . $order->getTrackingId() . '.pdf"');
-            $response->setBody($pdf);
-
-            return $response;
-        } catch (\Exception $e) {
-            return new DataResponse([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+    public function download(int $orderId): Response 
+    {
+        // PDF download logic will go here
+        return new Response();
     }
 }
