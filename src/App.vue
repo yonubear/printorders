@@ -1,50 +1,54 @@
 <template>
-  <div id="app">
-    <h1>Print Orders</h1>
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="hasError">{{ error }}</div>
-    <div v-else>
-      <!-- Your orders list here -->
-      <ul>
-        <li v-for="order in orders" :key="order.id">
-          {{ order.name }}
-        </li>
-      </ul>
-    </div>
-  </div>
+	<div id="content" class="print-orders-app">
+		<NcAppNavigation>
+			<template #list>
+				<NcAppNavigationItem
+					id="all-orders"
+					:exact="true"
+					:name="t('printorders', 'All Orders')"
+					icon="icon-category-monitoring"
+					to="/"
+				/>
+			</template>
+
+			<template #footer>
+				<NcAppNavigationSettings>
+					<NcSettingsSection :title="t('printorders', 'Print Orders Settings')">
+						<!-- Add settings here -->
+					</NcSettingsSection>
+				</NcAppNavigationSettings>
+			</template>
+		</NcAppNavigation>
+
+		<router-view />
+	</div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import {
+	NcAppNavigation,
+	NcAppNavigationItem,
+	NcAppNavigationSettings,
+	NcSettingsSection,
+} from '@nextcloud/vue'
 
 export default {
-  name: 'App',
-  computed: {
-    ...mapGetters([
-      'getOrders',
-      'isLoading',
-      'hasError'
-    ]),
-    orders() {
-      return this.getOrders
-    }
-  },
-  methods: {
-    ...mapActions([
-      'fetchOrders'
-    ])
-  },
-  mounted() {
-    this.fetchOrders()
-  }
+	name: 'App',
+
+	components: {
+		NcAppNavigation,
+		NcAppNavigationItem,
+		NcAppNavigationSettings,
+		NcSettingsSection,
+	},
 }
 </script>
 
-<style>
-#app {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding: 20px;
+<style lang="scss" scoped>
+.print-orders-app {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
 }
 </style>

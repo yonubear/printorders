@@ -1,6 +1,9 @@
 <?php
-declare(strict_types=1);
+script('printorders', 'printorders-main');
+style('printorders', 'main');
 ?>
-<div id="app">
-    <!-- Vue app will be mounted here -->
+<div id="content" class="app-printorders">
+    <div id="app">
+        <!-- Vue app will be mounted here -->
+    </div>
 </div>
