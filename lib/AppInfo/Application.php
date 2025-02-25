@@ -13,6 +13,7 @@ use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\Util;
 use OCP\INavigationManager;
+use OCP\IURLGenerator;
 
 class Application extends App implements IBootstrap 
 {
@@ -56,12 +57,14 @@ class Application extends App implements IBootstrap
         Util::addStyle(self::APP_ID, 'main');
 
         // Register navigation
-        $context->getAppContainer()->get(INavigationManager::class)->add(function() {
+        $container = $context->getAppContainer();
+        $container->get(INavigationManager::class)->add(function() use ($container) {
+            $urlGenerator = $container->get(IURLGenerator::class);
             return [
                 'id' => self::APP_ID,
                 'order' => 10,
-                'href' => $this->getContainer()->get('URLGenerator')->linkToRoute('printorders.page.index'),
-                'icon' => $this->getContainer()->get('URLGenerator')->imagePath(self::APP_ID, 'app.svg'),
+                'href' => $urlGenerator->linkToRoute('printorders.page.index'),
+                'icon' => $urlGenerator->imagePath('printorders', 'app.svg'),
                 'name' => 'Print Orders'
             ];
         });
