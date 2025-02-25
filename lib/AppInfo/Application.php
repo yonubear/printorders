@@ -12,6 +12,7 @@ use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\Util;
+use OCP\INavigationManager;
 
 class Application extends App implements IBootstrap 
 {
@@ -46,17 +47,6 @@ class Application extends App implements IBootstrap
                 $c->get('Request')
             );
         });
-
-        // Register navigation entry
-        $context->registerNavigationEntry(function(): array {
-            return [
-                'id' => self::APP_ID,
-                'order' => 10,
-                'href' => 'printorders',
-                'icon' => 'app.svg',
-                'name' => 'Print Orders'
-            ];
-        });
     }
 
     public function boot(IBootContext $context): void 
@@ -65,6 +55,15 @@ class Application extends App implements IBootstrap
         Util::addScript(self::APP_ID, 'main');
         Util::addStyle(self::APP_ID, 'main');
 
-        // Any other initialization that was in app.php
+        // Register navigation
+        $context->getAppContainer()->get(INavigationManager::class)->add(function() {
+            return [
+                'id' => self::APP_ID,
+                'order' => 10,
+                'href' => $this->getContainer()->get('URLGenerator')->linkToRoute('printorders.page.index'),
+                'icon' => $this->getContainer()->get('URLGenerator')->imagePath(self::APP_ID, 'app.svg'),
+                'name' => 'Print Orders'
+            ];
+        });
     }
 }
